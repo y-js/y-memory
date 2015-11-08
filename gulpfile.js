@@ -6,10 +6,10 @@ var runSequence = require('run-sequence').use(gulp)
 
 require('../yjs/gulpfile.helper.js')(gulp, {
   polyfills: [],
-  entry: './src/IndexedDB.js',
-  targetName: 'y-indexeddb.js',
-  moduleName: 'y-indexeddb',
-  specs: []
+  entry: './src/Memory.js',
+  targetName: 'y-memory.js',
+  moduleName: 'y-memory',
+  specs: ['./src/RedBlackTree.spec.js']
 })
 
 gulp.task('default', ['updateSubmodule'], function (cb) {

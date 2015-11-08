@@ -2,8 +2,6 @@
 'use strict'
 
 var Y = require('../../yjs/src/SpecHelper.js')
-var tmp = require('./Memory.js')
-tmp(Y)
 
 var numberOfRBTreeTests = 1000
 
@@ -57,7 +55,7 @@ describe('RedBlack Tree', function () {
   var tree, memory
   describe('debug #2', function () {
     beforeAll(function (done) {
-      this.memory = new Y.Memory(null, {
+      this.memory = new Y.memory(null, { // eslint-disable-line
         name: 'Memory',
         gcTimeout: -1
       })
@@ -85,7 +83,7 @@ describe('RedBlack Tree', function () {
   describe(`After adding&deleting (0.8/0.2) ${numberOfRBTreeTests} times`, function () {
     var elements = []
     beforeAll(function (done) {
-      this.memory = new Y.Memory(null, {
+      this.memory = new Y.memory(null, { // eslint-disable-line
         name: 'Memory',
         gcTimeout: -1
       })

@@ -60,7 +60,7 @@ function extend (Y) {
       delete this.ds
     }
   }
-  Y.extend('Memory', Database)
+  Y.extend('memory', Database)
 }
 
 module.exports = extend

@@ -12,12 +12,15 @@ function extend (Y) {
       this.ds = store.ds
     }
   }
+  var Store = Y.utils.RBTree
+  var BufferedStore = Y.utils.createSmallLookupBuffer(Store)
+
   class Database extends Y.AbstractDatabase {
     constructor (y, opts) {
       super(y, opts)
-      this.os = new Y.utils.RBTree()
-      this.ds = new Y.utils.RBTree()
-      this.ss = new Y.utils.RBTree()
+      this.os = new BufferedStore()
+      this.ds = new Store()
+      this.ss = new BufferedStore()
     }
     logTable () {
       var self = this

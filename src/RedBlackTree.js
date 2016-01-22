@@ -265,7 +265,8 @@ module.exports = function (Y) {
       }
       var d = this.findNode(id)
       if (d == null) {
-        throw new Error('Element does not exist!')
+        // throw new Error('Element does not exist!')
+        return
       }
       this.length--
       if (d.left !== null && d.right !== null) {

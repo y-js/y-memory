@@ -484,6 +484,7 @@ module.exports = function (Y) {
         }
       }
     }
+    * flush () {}
   }
 
   Y.utils.RBTree = RBTree

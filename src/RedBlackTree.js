@@ -191,6 +191,13 @@ module.exports = function (Y) {
         }
       }
     }
+    findSmallestNode () {
+      var o = this.root
+      while (o != null && o.left != null) {
+        o = o.left
+      }
+      return o
+    }
     * findWithLowerBound (from) {
       var n = this.findNodeWithLowerBound(from)
       return n == null ? null : n.val
@@ -200,7 +207,12 @@ module.exports = function (Y) {
       return n == null ? null : n.val
     }
     * iterate (t, from, to, f) {
-      var o = this.findNodeWithLowerBound(from)
+      var o
+      if (from === null) {
+        o = this.findSmallestNode()
+      } else {
+        o = this.findNodeWithLowerBound(from)
+      }
       while (o !== null && (to === null || Y.utils.smaller(o.val.id, to) || Y.utils.compareIds(o.val.id, to))) {
         yield* f.call(t, o.val)
         o = o.next()

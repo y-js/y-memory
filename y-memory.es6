@@ -13,12 +13,15 @@ function extend (Y) {
       this.ds = store.ds
     }
   }
+  var Store = Y.utils.RBTree
+  var BufferedStore = Y.utils.createSmallLookupBuffer(Store)
+
   class Database extends Y.AbstractDatabase {
     constructor (y, opts) {
       super(y, opts)
-      this.os = new Y.utils.RBTree()
-      this.ds = new Y.utils.RBTree()
-      this.ss = new Y.utils.RBTree()
+      this.os = new BufferedStore()
+      this.ds = new Store()
+      this.ss = new BufferedStore()
     }
     logTable () {
       var self = this
@@ -263,6 +266,13 @@ module.exports = function (Y) {
         }
       }
     }
+    findSmallestNode () {
+      var o = this.root
+      while (o != null && o.left != null) {
+        o = o.left
+      }
+      return o
+    }
     * findWithLowerBound (from) {
       var n = this.findNodeWithLowerBound(from)
       return n == null ? null : n.val
@@ -272,7 +282,12 @@ module.exports = function (Y) {
       return n == null ? null : n.val
     }
     * iterate (t, from, to, f) {
-      var o = this.findNodeWithLowerBound(from)
+      var o
+      if (from === null) {
+        o = this.findSmallestNode()
+      } else {
+        o = this.findNodeWithLowerBound(from)
+      }
       while (o !== null && (to === null || Y.utils.smaller(o.val.id, to) || Y.utils.compareIds(o.val.id, to))) {
         yield* f.call(t, o.val)
         o = o.next()
@@ -337,7 +352,8 @@ module.exports = function (Y) {
       }
       var d = this.findNode(id)
       if (d == null) {
-        throw new Error('Element does not exist!')
+        // throw new Error('Element does not exist!')
+        return
       }
       this.length--
       if (d.left !== null && d.right !== null) {
@@ -555,6 +571,7 @@ module.exports = function (Y) {
         }
       }
     }
+    * flush () {}
   }
 
   Y.utils.RBTree = RBTree

@@ -58,7 +58,7 @@ function extend (Y) {
       }
     }
     * destroy () {
-      super.destroy()
+      yield* super.destroy()
       delete this.os
       delete this.ss
       delete this.ds

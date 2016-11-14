@@ -8,7 +8,7 @@ require('../yjs/gulpfile.helper.js')(gulp, {
   polyfills: [],
   entry: './src/Memory.js',
   targetName: 'y-memory.js',
-  moduleName: 'y-memory',
+  moduleName: 'yMemory',
   specs: ['./src/RedBlackTree.spec.js']
 })
 

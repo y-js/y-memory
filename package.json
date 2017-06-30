@@ -1,6 +1,6 @@
 {
   "name": "y-memory",
-  "version": "8.0.8",
+  "version": "8.0.9",
   "description": "Memory database adapter for Yjs",
   "main": "./src/Memory.js",
   "scripts": {

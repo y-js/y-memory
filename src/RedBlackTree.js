@@ -1,9 +1,8 @@
-'use strict'
 
 /*
   This file contains a not so fancy implemantion of a Red Black Tree.
 */
-module.exports = function (Y) {
+export default function extendRBTree (Y) {
   class N {
     // A created node is always red!
     constructor (val) {
@@ -130,10 +129,10 @@ module.exports = function (Y) {
       this.length = 0
     }
     * findNext (id) {
-      return yield* this.findWithLowerBound([id[0], id[1] + 1])
+      return yield * this.findWithLowerBound([id[0], id[1] + 1])
     }
     * findPrev (id) {
-      return yield* this.findWithUpperBound([id[0], id[1] - 1])
+      return yield * this.findWithUpperBound([id[0], id[1] - 1])
     }
     findNodeWithLowerBound (from) {
       if (from === void 0) {
@@ -213,8 +212,15 @@ module.exports = function (Y) {
       } else {
         o = this.findNodeWithLowerBound(from)
       }
-      while (o !== null && (to === null || Y.utils.smaller(o.val.id, to) || Y.utils.compareIds(o.val.id, to))) {
-        yield* f.call(t, o.val)
+      while (
+        o !== null &&
+        (
+          to === null || // eslint-disable-line no-unmodified-loop-condition
+          Y.utils.smaller(o.val.id, to) ||
+          Y.utils.compareIds(o.val.id, to)
+        )
+      ) {
+        yield * f.call(t, o.val)
         o = o.next()
       }
       return true
@@ -228,7 +234,7 @@ module.exports = function (Y) {
       if (from == null) { from = null }
       if (to == null) { to = null }
       var os = []
-      yield* this.iterate(this, from, to, function * (o) {
+      yield * this.iterate(this, from, to, function * (o) {
         if (filter(o)) {
           var o_ = {}
           for (var key in o) {

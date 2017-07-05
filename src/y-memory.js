@@ -1,8 +1,9 @@
-/* global Y */
-'use strict'
 
-function extend (Y) {
-  require('./RedBlackTree.js')(Y)
+import extendRBTree from './RedBlackTree'
+
+export default function extend (Y) {
+  extendRBTree(Y)
+
   class Transaction extends Y.Transaction {
     constructor (store) {
       super(store)
@@ -26,11 +27,11 @@ function extend (Y) {
       var self = this
       self.requestTransaction(function * () {
         console.log('User: ', this.store.y.connector.userId, "==============================") // eslint-disable-line
-        console.log("State Set (SS):", yield* this.getStateSet()) // eslint-disable-line
+        console.log("State Set (SS):", yield * this.getStateSet()) // eslint-disable-line
         console.log("Operation Store (OS):") // eslint-disable-line
-        yield* this.os.logTable() // eslint-disable-line
+        yield * this.os.logTable() // eslint-disable-line
         console.log("Deletion Store (DS):") //eslint-disable-line
-        yield* this.ds.logTable() // eslint-disable-line
+        yield * this.ds.logTable() // eslint-disable-line
         if (this.store.gc1.length > 0 || this.store.gc2.length > 0) {
           console.warn('GC1|2 not empty!', this.store.gc1, this.store.gc2)
         }
@@ -64,7 +65,7 @@ function extend (Y) {
       }
     }
     * destroy () {
-      yield* super.destroy()
+      yield * super.destroy()
       delete this.os
       delete this.ss
       delete this.ds
@@ -73,7 +74,6 @@ function extend (Y) {
   Y.extend('memory', Database)
 }
 
-module.exports = extend
 if (typeof Y !== 'undefined') {
-  extend(Y)
+  extend(Y) // eslint-disable-line
 }

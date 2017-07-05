@@ -7,8 +7,13 @@
     "dist": "rollup -c rollup.dist.js",
     "lint": "standard",
     "debug": "concurrently 'rollup -wc rollup.test.js' 'cutest-serve y-memory.test.js -o'",
-    "watch": "rollup -wc rollup.dist.js"
+    "watch": "rollup -wc rollup.dist.js",
+    "postversion": "npm run lint && npm run dist",
+    "postpublish": "tag-dist-files --overwrite-existing-tag"
   },
+  "files": [
+    "y-memory.*"
+  ],
   "standard": {
     "ignore": [
       "/y-memory.test.js",
@@ -51,7 +56,8 @@
     "rollup-plugin-uglify": "^1.0.2",
     "rollup-regenerator-runtime": "^6.23.1",
     "rollup-watch": "^3.2.2",
-    "standard": "^10.0.2"
+    "standard": "^10.0.2",
+    "tag-dist-files": "^0.1.6"
   },
   "peerDependencies": {
     "yjs": ">= 9.0.0 < 14.0.0"

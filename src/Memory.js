@@ -47,13 +47,20 @@ function extend (Y) {
     }
     transact (makeGen) {
       var t = new Transaction(this)
-      while (makeGen !== null) {
-        var gen = makeGen.call(t)
-        var res = gen.next()
-        while (!res.done) {
-          res = gen.next(res.value)
+      try {
+        while (makeGen !== null) {
+          var gen = makeGen.call(t)
+          var res = gen.next()
+          while (!res.done) {
+            res = gen.next(res.value)
+          }
+          makeGen = this.getNextRequest()
         }
-        makeGen = this.getNextRequest()
+      } catch (e) {
+        if (this.store.y.emit != null) {
+          this.store.y.emit('error', e)
+        }
+        throw e
       }
     }
     * destroy () {

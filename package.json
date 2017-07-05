@@ -4,11 +4,12 @@
   "description": "Memory database adapter for Yjs",
   "main": "./src/Memory.js",
   "scripts": {
+    "test": "npm run lint",
     "dist": "rollup -c rollup.dist.js",
     "lint": "standard",
     "debug": "concurrently 'rollup -wc rollup.test.js' 'cutest-serve y-memory.test.js -o'",
     "watch": "rollup -wc rollup.dist.js",
-    "postversion": "npm run lint && npm run dist",
+    "postversion": "npm run dist",
     "postpublish": "tag-dist-files --overwrite-existing-tag"
   },
   "files": [

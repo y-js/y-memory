@@ -58,8 +58,8 @@ export default function extend (Y) {
           makeGen = this.getNextRequest()
         }
       } catch (e) {
-        if (this.store.y.emit != null) {
-          this.store.y.emit('error', e)
+        if (this.y.emit != null) {
+          this.y.emit('error', e)
         }
         throw e
       }

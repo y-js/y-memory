@@ -2,13 +2,15 @@
   "name": "y-memory",
   "version": "9.0.0-0",
   "description": "Memory database adapter for Yjs",
-  "main": "./src/Memory.js",
+  "main": "./y-memory.node.js",
+  "browser": "./y-memory.js",
+  "module": "./src/y-memory.js",
   "scripts": {
     "test": "npm run lint",
-    "dist": "rollup -c rollup.dist.js",
+    "dist": "rollup -c rollup.node.js; rollup -c rollup.browser.js",
     "lint": "standard",
     "debug": "concurrently 'rollup -wc rollup.test.js' 'cutest-serve y-memory.test.js -o'",
-    "watch": "rollup -wc rollup.dist.js",
+    "watch": "rollup -wc rollup.browser.js; rollup -wc rollup.browser.js",
     "postversion": "npm run dist",
     "postpublish": "tag-dist-files --overwrite-existing-tag"
   },
@@ -61,6 +63,6 @@
     "tag-dist-files": "^0.1.6"
   },
   "peerDependencies": {
-    "yjs": ">= 9.0.0 < 14.0.0"
+    "yjs": ">= 13.0.0-0 < 14.0.0"
   }
 }
